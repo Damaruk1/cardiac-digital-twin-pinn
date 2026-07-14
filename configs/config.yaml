@@ -1,0 +1,24 @@
+# =============================================================
+# Cardiac Digital Twin — Project Configuration
+# Phase 1: only project metadata + paths + logging settings.
+# Later phases (data, model, training) get their own sections
+# ADDED here — we never pre-write sections we don't use yet.
+# =============================================================
+
+project:
+  name: "Cardiac Digital Twin (PINN)"
+  version: "0.1.0"
+  phase: 1
+  description: >
+    Physics-Informed Neural Network pipeline for personalized
+    cardiac digital twins, from raw ECG to 3D heart simulation.
+
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  logs: "logs"
+
+logging:
+  level: "INFO"          # DEBUG | INFO | WARNING | ERROR | CRITICAL
+  log_to_file: true
+  log_filename: "project.log"

@@ -1,0 +1,5 @@
+# Phase 1: Project setup dependencies only.
+# We add packages phase-by-phase, only when we actually use them.
+
+PyYAML==6.0.2      # for reading configs/config.yaml
+pytest==8.3.3      # for tests/test_setup.py

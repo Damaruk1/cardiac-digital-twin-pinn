@@ -1,0 +1,35 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# --- Virtual environment ---
+venv/
+.venv/
+env/
+
+# --- Data (never commit raw/processed medical data) ---
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# --- Logs ---
+logs/*.log
+!logs/.gitkeep
+
+# --- Model checkpoints (future phases) ---
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+
+# --- OS / Editor ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Env secrets ---
+.env
