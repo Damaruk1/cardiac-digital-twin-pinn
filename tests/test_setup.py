@@ -19,7 +19,7 @@ def test_config_loads_successfully():
     """The real config.yaml should load without raising."""
     config = load_config("configs/config.yaml")
     assert config.name == "Cardiac Digital Twin (PINN)"
-    assert config.phase == 1
+    assert config.phase >= 1  # bumps up each phase, so just check it's valid
 
 
 def test_config_missing_file_raises_error():

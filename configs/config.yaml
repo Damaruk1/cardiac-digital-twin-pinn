@@ -1,17 +1,8 @@
-# =============================================================
-# Cardiac Digital Twin — Project Configuration
-# Phase 1: only project metadata + paths + logging settings.
-# Later phases (data, model, training) get their own sections
-# ADDED here — we never pre-write sections we don't use yet.
-# =============================================================
-
 project:
   name: "Cardiac Digital Twin (PINN)"
   version: "0.1.0"
-  phase: 1
-  description: >
-    Physics-Informed Neural Network pipeline for personalized
-    cardiac digital twins, from raw ECG to 3D heart simulation.
+  phase: 5
+  description: "PINN pipeline for personalized cardiac digital twins."
 
 paths:
   data_raw: "data/raw"
@@ -19,6 +10,19 @@ paths:
   logs: "logs"
 
 logging:
-  level: "INFO"          # DEBUG | INFO | WARNING | ERROR | CRITICAL
+  level: "INFO"
   log_to_file: true
   log_filename: "project.log"
+
+signal_processing:
+  sampling_rate_hz: 250
+  bandpass_low_hz: 0.5
+  bandpass_high_hz: 40.0
+  filter_order: 4
+  powerline_freq_hz: 50.0
+  max_heart_rate_bpm: 220
+
+dataset:
+  database: "mitdb"           # MIT-BIH Arrhythmia Database on PhysioNet
+  sample_records: ["100"]     # start with one record; expand once verified
+  native_sampling_rate_hz: 360  # MIT-BIH's actual recording rate
