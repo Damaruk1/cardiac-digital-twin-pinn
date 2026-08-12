@@ -26,3 +26,13 @@ dataset:
   database: "mitdb"           # MIT-BIH Arrhythmia Database on PhysioNet
   sample_records: ["100"]     # start with one record; expand once verified
   native_sampling_rate_hz: 360  # MIT-BIH's actual recording rate
+
+training:
+  train_frac: 0.70
+  val_frac: 0.15
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 10
+  checkpoint_dir: "checkpoints"
+  window_before: 90
+  window_after: 90

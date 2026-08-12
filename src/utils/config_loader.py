@@ -27,6 +27,14 @@ class ProjectConfig:
     database: str
     sample_records: list
     native_sampling_rate_hz: int
+    train_frac: float
+    val_frac: float
+    batch_size: int
+    learning_rate: float
+    epochs: int
+    checkpoint_dir: str
+    window_before: int
+    window_after: int
 
 def load_config(config_path="configs/config.yaml") -> ProjectConfig:
     path = Path(config_path)
@@ -44,6 +52,10 @@ def load_config(config_path="configs/config.yaml") -> ProjectConfig:
             powerline_freq_hz=raw["signal_processing"]["powerline_freq_hz"], max_heart_rate_bpm=raw["signal_processing"]["max_heart_rate_bpm"],
             database=raw["dataset"]["database"], sample_records=raw["dataset"]["sample_records"],
             native_sampling_rate_hz=raw["dataset"]["native_sampling_rate_hz"],
+            train_frac=raw["training"]["train_frac"], val_frac=raw["training"]["val_frac"],
+            batch_size=raw["training"]["batch_size"], learning_rate=raw["training"]["learning_rate"],
+            epochs=raw["training"]["epochs"], checkpoint_dir=raw["training"]["checkpoint_dir"],
+            window_before=raw["training"]["window_before"], window_after=raw["training"]["window_after"],
         )
     except KeyError as missing_key:
         raise ConfigError(f"Missing required config key: {missing_key} in {path}") from missing_key
