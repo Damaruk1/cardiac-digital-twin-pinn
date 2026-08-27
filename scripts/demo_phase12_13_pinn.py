@@ -10,6 +10,10 @@ Run with:
     python -m scripts.demo_phase12_13_pinn
 """
 
+from pathlib import Path
+
+import torch
+
 from src.pinn.collocation import Domain
 from src.pinn.fitzhugh_nagumo import FHNParameters
 from src.pinn.pinn_model import PINNNet
@@ -50,8 +54,10 @@ def main() -> None:
 
     logger.info(f"Final losses -- physics={history.physics_loss[-1]:.5f}, "
                 f"ic={history.ic_loss[-1]:.5f}, bc={history.bc_loss[-1]:.5f}")
-    logger.info(f"Physics loss reduced by {history.physics_loss[0] / max(history.physics_loss[-1], 1e-10):.1f}x "
-                f"from initial random-init value.")
+    logger.info(f"Total loss: initial={history.total_loss[0]:.5f} -> final={history.total_loss[-1]:.5f} "
+                f"(note: physics loss can legitimately RISE during training as the network "
+                f"develops real dynamics to satisfy -- a near-zero-output network trivially "
+                f"has near-zero residual. Total loss trending down is the metric that matters.)")
 
     fig_solution = plot_solution_heatmap(model, domain, title="Learned Cardiac Wave Propagation u(x,t)")
     fig_solution.savefig("logs/phase12_13_pinn_solution.png", dpi=150)
@@ -60,6 +66,11 @@ def main() -> None:
     fig_history = plot_training_history(history)
     fig_history.savefig("logs/phase12_13_pinn_training_history.png", dpi=150)
     logger.info("Saved logs/phase12_13_pinn_training_history.png")
+
+    checkpoint_path = Path(config.checkpoint_dir) / "pinn_fhn_best.pt"
+    Path(config.checkpoint_dir).mkdir(parents=True, exist_ok=True)
+    torch.save(model.state_dict(), checkpoint_path)
+    logger.info(f"Saved PINN checkpoint to {checkpoint_path}")
 
 
 if __name__ == "__main__":
